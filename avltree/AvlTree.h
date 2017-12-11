@@ -25,9 +25,8 @@ public:
     void insert(const int);
     void remove(const int);
 
-    friend void AvlTree::setBal(Node *);
-    friend int AvlTree::getHeight(Node *);
+    void setBal();
+    int getHeight();
 };
-
 
 #endif //AVLTREE_AVLTREE_H
