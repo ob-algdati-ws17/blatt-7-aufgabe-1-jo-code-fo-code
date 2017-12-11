@@ -1,0 +1,8 @@
+language: cpp
+compliler: gcc
+script:
+  - rm -rf build
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
