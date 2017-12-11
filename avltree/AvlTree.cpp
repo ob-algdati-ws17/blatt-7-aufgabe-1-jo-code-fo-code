@@ -22,8 +22,12 @@ AvlTree::Node::~Node() {
 
 
 void AvlTree::insert(const int key) {
-    if (root == nullptr)
+    if (root == nullptr) {
         root = new Node(key);
+        root->bal = 0;
+    }
+
+
 }
 
 void AvlTree::remove(const int key) {
@@ -45,4 +49,15 @@ bool AvlTree::search(const int key) const {
             return true;
         }
     }
+}
+
+void AvlTree::setBal(Node *n) {
+    n->bal = n->right->height - n->left->height;
+}
+
+int AvlTree::getHeight(Node *n) {
+    if (n == nullptr)
+        return -1;
+    else
+        return n->height;
 }

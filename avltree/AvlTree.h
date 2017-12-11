@@ -8,6 +8,7 @@ private:
     struct Node {
         const int key;
         int bal;
+        int height;
         Node *left = nullptr;
         Node *right = nullptr;
         Node(const int);
@@ -23,6 +24,9 @@ public:
     bool search(const int) const;
     void insert(const int);
     void remove(const int);
+
+    friend void AvlTree::setBal(Node *);
+    friend int AvlTree::getHeight(Node *);
 };
 
 
