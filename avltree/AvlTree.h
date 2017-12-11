@@ -17,6 +17,7 @@ private:
     Node *root = nullptr;
 
 public:
+
     ~AvlTree();
     bool search(const int) const;
     void insert(const int);
