@@ -22,7 +22,8 @@ AvlTree::Node::~Node() {
 
 
 void AvlTree::insert(const int key) {
-
+    if (root == nullptr)
+        root = new Node(key);
 }
 
 void AvlTree::remove(const int key) {
@@ -44,5 +45,4 @@ bool AvlTree::search(const int key) const {
             return true;
         }
     }
-
 }
