@@ -36,11 +36,11 @@ bool AvlTree::search(const int key) const {
     while (true) {
         if (curr == nullptr) {
             return false;
-        } else if (curr->key > value) {
+        } else if (curr->key > key) {
             curr = curr->left;
-        } else if (curr->key < value) {
+        } else if (curr->key < key) {
             curr = curr->right;
-        } else if(curr->key == value){
+        } else if(curr->key == key){
             return true;
         }
     }
