@@ -7,6 +7,7 @@ private:
 
     struct Node {
         const int key;
+        int bal;
         Node *left = nullptr;
         Node *right = nullptr;
         Node(const int);
