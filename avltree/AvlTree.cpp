@@ -44,23 +44,54 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     }
 
     if (getHeight(node->left) < getHeight(node->right))
-        node->height = getHeight(node->right);
+        node->height = getHeight(node->right) + 1;
     else
-        node->height = getHeight(node->left);
+        node->height = getHeight(node->left) + 1;
 
     return node;
 }
 
-AvlTree::Node* AvlTree::Node::rotateLeft(Node*) {
+AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
+    Node* top = node->right;
+    node->right = top->left;
+    top->left = node;
+
+    if (getHeight(node->left) < getHeight(node->right))
+        node->height = getHeight(node->right) + 1;
+    else
+        node->height = getHeight(node->left) + 1;
+
+    if (getHeight(top->left) < getHeight(top->right))
+        top->height = getHeight(top->right) + 1;
+    else
+        top->height = getHeight(top->left) + 1;
+
+    return top;
+}
+
+AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
+    Node* top = node->left;
+    node->left = top->right;
+    top->right = node;
+
+    if (getHeight(node->left) < getHeight(node->right))
+        node->height = getHeight(node->right) + 1;
+    else
+        node->height = getHeight(node->left) + 1;
+
+    if (getHeight(top->left) < getHeight(top->right))
+        top->height = getHeight(top->right) + 1;
+    else
+        top->height = getHeight(top->left) + 1;
+
+    return top;
+}
+
+AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
 
 }
-AvlTree::Node* AvlTree::Node::rotateRight(Node*) {
 
-}
-AvlTree::Node* AvlTree::Node::rotateLeftRight(Node*) {
-
-}
-AvlTree::Node* AvlTree::Node::rotateRightLeft(Node*) {
+AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
 
 }
 
