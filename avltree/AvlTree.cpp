@@ -24,14 +24,34 @@ AvlTree::Node::~Node() {
 
 
 void AvlTree::insert(const int key) {
-    if (root == nullptr) {
-        root = new Node(key);
-        setBal(root);
-        root->height = 0;
+    root = root->insert(key, root);
+}
+
+AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
+    if(node == nullptr)
+        node = new Node(key);
+    else if(node->key < key) {
+        node->right = insert(key, node->right);
+        if(getBal(node) > 1) {
+            //ROTATING left
+        }
+    }
+    else {
+        node->left = insert(key, node->left);
+        if(getBal(node) < -1) {
+            //ROTATING right
+        }
     }
 
+    if (getHeight(node->left) < getHeight(node->right))
+        node->height = getHeight(node->right);
+    else
+        node->height = getHeight(node->left);
 
+    return node;
 }
+
+
 
 void AvlTree::remove(const int key) {
 
@@ -54,16 +74,17 @@ bool AvlTree::search(const int key) const {
     }
 }
 
-void AvlTree::setBal(Node *node) {
-    node->bal = getHeight(node->right) - getHeight(node->left);
+int AvlTree::Node::getBal(Node *node) {
+    return getHeight(node->right) - getHeight(node->left);
 }
 
-int AvlTree::getHeight(Node *node) {
+int AvlTree::Node::getHeight(Node *node) {
     if(node == nullptr)
         return -1;
     else
         return node->height;
 }
+
 
 
 vector<int> *AvlTree::preorder() const {
