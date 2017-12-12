@@ -53,7 +53,7 @@ bool AvlTree::search(const int key) const {
     }
 }
 
-void AvlTree::setBal() {
+void AvlTree::setBal(Node *node) {
 
 
 }

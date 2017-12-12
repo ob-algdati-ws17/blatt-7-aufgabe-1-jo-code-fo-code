@@ -36,7 +36,7 @@ public:
     vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
     vector<int> *postorder() const; // (Nebenreihenfolge)
 
-    void setBal();
+    void setBal(Node*);
     int getHeight(Node*);
 };
 
