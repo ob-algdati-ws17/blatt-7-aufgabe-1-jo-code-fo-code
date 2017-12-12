@@ -67,7 +67,7 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     return node;
 }
 
-AvlTree::Node* AvlTree::Node::rotateLeft(Node* &node) {
+AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     Node* top = node->right;
     node->right = top->left;
     top->left = node;
@@ -85,7 +85,7 @@ AvlTree::Node* AvlTree::Node::rotateLeft(Node* &node) {
     return top;
 }
 
-AvlTree::Node* AvlTree::Node::rotateRight(Node* &node) {
+AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
     Node* top = node->left;
     node->left = top->right;
     top->right = node;
@@ -103,13 +103,13 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* &node) {
     return top;
 }
 
-AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* &node) {
+AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
     node->left = rotateLeft(node->left);
     Node* tmp = rotateRight(node);
     return tmp;
 }
 
-AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* &node) {
+AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
     return tmp;
