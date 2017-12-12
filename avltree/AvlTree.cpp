@@ -51,6 +51,18 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     return node;
 }
 
+AvlTree::Node* AvlTree::Node::rotateLeft(Node*) {
+
+}
+AvlTree::Node* AvlTree::Node::rotateRight(Node*) {
+
+}
+AvlTree::Node* AvlTree::Node::rotateLeftRight(Node*) {
+
+}
+AvlTree::Node* AvlTree::Node::rotateRightLeft(Node*) {
+
+}
 
 
 void AvlTree::remove(const int key) {
