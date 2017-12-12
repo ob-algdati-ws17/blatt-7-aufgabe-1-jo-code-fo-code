@@ -54,13 +54,14 @@ bool AvlTree::search(const int key) const {
 }
 
 void AvlTree::setBal(Node *node) {
-
-
+    node->bal = getHeight(node->right) - getHeight(node->left);
 }
 
 int AvlTree::getHeight(Node *node) {
-
-    return 0;
+    if(node == nullptr)
+        return -1;
+    else
+        return node->height;
 }
 
 
