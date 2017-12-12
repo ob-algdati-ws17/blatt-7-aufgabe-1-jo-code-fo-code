@@ -1,6 +1,7 @@
 #include "AvlTree.h"
 
 #include <iostream>
+#include <functional>
 
 using namespace std;
 
@@ -47,7 +48,7 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
         node->left = insert(key, node->left);
         if(getBal(node) < -1) {
             //ROTATING right
-            if(getBal(node) < getBal(node->left))
+            if(getBal(node) > getBal(node->left))
                 node = rotateRight(node);
             else
                 node = rotateLeftRight(node);
@@ -212,4 +213,38 @@ vector<int> *AvlTree::Node::postorder() const {
     // Wurzel in vec
     vec->push_back(key);
     return vec;
+}
+
+
+/********************************************************************
+ * operator<<
+ *******************************************************************/
+std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
+    function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs
+            = [&](std::ostream &os, const int value, const AvlTree::Node *node, const string l) {
+
+                static int nullcount = 0;
+
+                if (node == nullptr) {
+                    os << "    null" << nullcount << "[shape=point];" << endl;
+                    os << "    " << value << " -> null" << nullcount
+                       << " [label=\"" << l << "\"];" << endl;
+                    nullcount++;
+                } else {
+                    os << "    " << value << " -> " << node->key
+                       << " [label=\"" << l << "\"];" << endl;
+
+                    printToOs(os, node->key, node->left, "l");
+                    printToOs(os, node->key, node->right, "r");
+                }
+            };
+    os << "digraph tree {" << endl;
+    if (tree.root == nullptr) {
+        os << "    null " << "[shape=point];" << endl;
+    } else {
+        printToOs(os, tree.root->key, tree.root->left, "l");
+        printToOs(os, tree.root->key, tree.root->right, "r");
+    }
+    os << "}" << endl;
+    return os;
 }

@@ -2,6 +2,8 @@
 #define AVLTREE_AVLTREE_H
 
 #include <vector>
+#include <iostream>
+
 
 using namespace std;
 
@@ -45,6 +47,8 @@ public:
     vector<int> *preorder() const;  // (Hauptreihenfolge)
     vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
     vector<int> *postorder() const; // (Nebenreihenfolge)
+
+    friend ostream &operator<<(ostream &, const AvlTree &);
 };
 
 #endif //AVLTREE_AVLTREE_H
