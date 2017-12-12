@@ -1,6 +1,10 @@
 #ifndef AVLTREE_AVLTREE_H
 #define AVLTREE_AVLTREE_H
 
+#include <vector>
+
+using namespace std;
+
 class AvlTree {
 
 private:
@@ -14,6 +18,9 @@ private:
         Node(const int);
         Node(const int, Node *, Node *);
         ~Node();
+        vector<int> *preorder() const;  // (Hauptreihenfolge)
+        vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
+        vector<int> *postorder() const; // (Nebenreihenfolge)
     };
 
     Node *root = nullptr;
@@ -24,6 +31,10 @@ public:
     bool search(const int) const;
     void insert(const int);
     void remove(const int);
+
+    vector<int> *preorder() const;  // (Hauptreihenfolge)
+    vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
+    vector<int> *postorder() const; // (Nebenreihenfolge)
 
     void setBal();
     int getHeight();
