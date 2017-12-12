@@ -72,3 +72,16 @@ TEST(AvlTreeTest, rotateRightTest) {
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(1,5,10,15,20,25));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(1,5,15,25,20,10));
 }
+
+TEST(AvlTreeTest, rotateLeftRightTest) {
+    AvlTree a;
+    a.insert(20);
+    a.insert(10);
+    a.insert(25);
+    a.insert(5);
+    a.insert(15);
+    a.insert(12);
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(15,10,5,12,20,25));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,12,15,20,25));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,12,10,25,20,15));
+}
