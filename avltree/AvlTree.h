@@ -29,10 +29,10 @@ private:
         int getBal(Node*);
         int getHeight(Node*);
 
-        Node* rotateLeft(Node*);
-        Node* rotateRight(Node*);
-        Node* rotateLeftRight(Node*);
-        Node* rotateRightLeft(Node*);
+        Node* rotateLeft(Node* &);
+        Node* rotateRight(Node* &);
+        Node* rotateLeftRight(Node* &);
+        Node* rotateRightLeft(Node* &);
     };
 
     Node *root = nullptr;

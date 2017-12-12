@@ -38,7 +38,8 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
         node->right = insert(key, node->right);
         if(getBal(node) > 1) {
             //ROTATING left
-            if(getBal(node) > getBal(node->right))
+            //if(getBal(node) > getBal(node->right))
+            if(key > node->right->key)
                 node = rotateLeft(node);
             else
                 node = rotateRightLeft(node);
@@ -48,10 +49,13 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
         node->left = insert(key, node->left);
         if(getBal(node) < -1) {
             //ROTATING right
-            if(getBal(node) > getBal(node->left))
+            //if(getBal(node) < getBal(node->left)) {
+            if(key < node->left->key) {
                 node = rotateRight(node);
-            else
+            }
+            else {
                 node = rotateLeftRight(node);
+            }
         }
     }
 
@@ -63,7 +67,7 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     return node;
 }
 
-AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
+AvlTree::Node* AvlTree::Node::rotateLeft(Node* &node) {
     Node* top = node->right;
     node->right = top->left;
     top->left = node;
@@ -81,7 +85,7 @@ AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     return top;
 }
 
-AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
+AvlTree::Node* AvlTree::Node::rotateRight(Node* &node) {
     Node* top = node->left;
     node->left = top->right;
     top->right = node;
@@ -99,14 +103,14 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
     return top;
 }
 
-AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
-    node->right = rotateLeft(node->right);
+AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* &node) {
+    node->left = rotateLeft(node->left);
     Node* tmp = rotateRight(node);
     return tmp;
 }
 
-AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
-    node->left = rotateRight(node->left);
+AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* &node) {
+    node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
     return tmp;
 }
@@ -134,7 +138,10 @@ bool AvlTree::search(const int key) const {
 }
 
 int AvlTree::Node::getBal(Node *node) {
-    return getHeight(node->right) - getHeight(node->left);
+    if(node == nullptr)
+        return 0;
+    else
+        return getHeight(node->right) - getHeight(node->left);
 }
 
 int AvlTree::Node::getHeight(Node *node) {
