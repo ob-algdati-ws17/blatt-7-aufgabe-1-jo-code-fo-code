@@ -88,11 +88,15 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
 }
 
 AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
-
+    node->right = rotateLeft(node->right);
+    Node* tmp = rotateRight(node);
+    return tmp;
 }
 
 AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
-
+    node->left = rotateRight(node->left);
+    Node* tmp = rotateLeft(node);
+    return tmp;
 }
 
 
