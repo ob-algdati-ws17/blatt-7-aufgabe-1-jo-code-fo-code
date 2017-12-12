@@ -34,12 +34,20 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
         node->right = insert(key, node->right);
         if(getBal(node) > 1) {
             //ROTATING left
+            if(getBal(node) == getBal(node->right))
+                node = rotateLeft(node);
+            else
+                node = rotateRightLeft(node);
         }
     }
     else {
         node->left = insert(key, node->left);
         if(getBal(node) < -1) {
             //ROTATING right
+            if(getBal(node) == getBal(node->left))
+                node = rotateRight(node);
+            else
+                node = rotateLeftRight(node);
         }
     }
 
