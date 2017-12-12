@@ -1,6 +1,8 @@
 #include "AvlTree.h"
 
-using namespace ::std;
+#include <iostream>
+
+using namespace std;
 
 
 /********************************************************************
@@ -30,21 +32,22 @@ void AvlTree::insert(const int key) {
 AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     if(node == nullptr)
         node = new Node(key);
+
     else if(node->key < key) {
         node->right = insert(key, node->right);
         if(getBal(node) > 1) {
             //ROTATING left
-            if(getBal(node) == getBal(node->right))
+            if(getBal(node) > getBal(node->right))
                 node = rotateLeft(node);
             else
                 node = rotateRightLeft(node);
         }
     }
-    else {
+    else if(node->key > key){
         node->left = insert(key, node->left);
         if(getBal(node) < -1) {
             //ROTATING right
-            if(getBal(node) == getBal(node->left))
+            if(getBal(node) < getBal(node->left))
                 node = rotateRight(node);
             else
                 node = rotateLeftRight(node);
