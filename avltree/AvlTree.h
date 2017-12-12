@@ -37,7 +37,7 @@ public:
     vector<int> *postorder() const; // (Nebenreihenfolge)
 
     void setBal();
-    int getHeight();
+    int getHeight(Node*);
 };
 
 #endif //AVLTREE_AVLTREE_H
