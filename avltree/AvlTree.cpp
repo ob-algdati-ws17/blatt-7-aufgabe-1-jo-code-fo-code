@@ -26,7 +26,8 @@ AvlTree::Node::~Node() {
 void AvlTree::insert(const int key) {
     if (root == nullptr) {
         root = new Node(key);
-        root->bal = 0;
+        setBal(root);
+        root->height = 0;
     }
 
 
