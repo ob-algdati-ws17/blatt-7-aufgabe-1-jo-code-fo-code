@@ -20,6 +20,15 @@ int main(int argc, const char *argv[]) {
     int val;
     AvlTree *tree = new AvlTree();
 
+    tree->insert(20);
+    tree->insert(25);
+    tree->insert(10);
+    tree->insert(15);
+    tree->insert(5);
+    tree->insert(7);
+
+    AvlTree a;
+
     for (int i = 1; i < argc; i++) {
         std::istringstream iss(argv[i]);
         iss >> val;
