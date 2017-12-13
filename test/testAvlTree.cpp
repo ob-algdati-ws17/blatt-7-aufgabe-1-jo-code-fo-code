@@ -198,7 +198,7 @@ TEST(AvlTreeTest, SearchTestEmptyTree) {
     EXPECT_FALSE(a.search(10));
 }
 
-TEST(AvlTreeTest, RemoveRootTest) {
+TEST(AvlTreeTest, RemoveTestRoot) {
     AvlTree a;
     a.insert(25);
     a.insert(10);
@@ -215,4 +215,37 @@ TEST(AvlTreeTest, RemoveRootTest) {
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,23,30,35,40));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,10,30,40,35,23));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,0,0,0));
+}
+
+TEST(AvlTreeTest, RemoveTestRightRotation) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(10);
+    a.insert(35);
+    a.insert(5);
+    a.insert(20);
+
+    a.remove(35);
+
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(10,5,25,20));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,25));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,25,10));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,-1,1));
+}
+
+
+TEST(AvlTreeTest, RemoveTestLeftRotation) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(10);
+    a.insert(35);
+    a.insert(30);
+    a.insert(40);
+
+    a.remove(10);
+
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(35,25,30,40));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(25,30,35,40));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(30,25,40,35));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,1,0,-1));
 }

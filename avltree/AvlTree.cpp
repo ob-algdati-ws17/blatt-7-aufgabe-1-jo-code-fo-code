@@ -100,14 +100,14 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
 
     //rotation removed element from left side
     if(getBal(node) > 1) {
-        if(getBal(node->right) == -1)
+        if(getBal(node->right) <= 0)
             node = rotateLeft(node);
         else
             node = rotateRightLeft(node);
     }
     //rotation removed element from right side
     else if(getBal(node) < -1) {
-        if(getBal(node->left) == 1)
+        if(getBal(node->left) >= 0)
             node = rotateRight(node);
         else
             node = rotateLeftRight(node);

@@ -25,11 +25,9 @@ int main(int argc, const char *argv[]) {
     tree->insert(35);
     tree->insert(5);
     tree->insert(20);
-    tree->insert(30);
-    tree->insert(40);
-    tree->insert(23);
 
-    tree->remove(25);
+
+    tree->remove(35);
 
     AvlTree a;
 
