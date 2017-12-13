@@ -92,6 +92,32 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
         }
 
         //balancing
+        if (getHeight(node->left) < getHeight(node->right))
+            node->height = getHeight(node->right) + 1;
+        else
+            node->height = getHeight(node->left) + 1;
+
+
+        //rotation
+        if(getBal(node) > 1) {
+            //ROTATING left
+            if(key > node->right->key)
+                node = rotateLeft(node);
+            else
+                node = rotateRightLeft(node);
+        }
+
+        if(getBal(node) < -1) {
+            //ROTATING right
+            if(key < node->left->key)
+                node = rotateRight(node);
+            else
+                node = rotateLeftRight(node);
+        }
+
+
+        return node;
+
     }
 
 }
