@@ -75,49 +75,45 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
     else if(key > node->key)
         node->right = remove(key, node->right);
     else {
-        if(node->left != nullptr && node->right != nullptr) {
+        if (node->left != nullptr && node->right != nullptr) {
             Node *predecessor = symPredecessor(node);
             node->key = predecessor->key;
             node->left = remove(node->key, node->left);
-        }
-        else {
-            if(node->left != nullptr)
+        } else {
+            if (node->left != nullptr)
                 node = node->left;
-            else if(node->right != nullptr)
+            else if (node->right != nullptr)
                 node = node->right;
             else {
                 node = nullptr;
                 return node;
             }
         }
-
-        //balancing
-        if (getHeight(node->left) < getHeight(node->right))
-            node->height = getHeight(node->right) + 1;
-        else
-            node->height = getHeight(node->left) + 1;
-
-
-        //rotation removed element from left side
-        if(getBal(node) > 1) {
-            //ROTATING left
-            if(getBal(node->right) == -1)
-                node = rotateLeft(node);
-            else
-                node = rotateRightLeft(node);
-        }
-
-        //rotation removed element from right side
-        if(getBal(node) < -1) {
-            //ROTATING right
-            if(getBal(node->left) == 1)
-                node = rotateRight(node);
-            else
-                node = rotateLeftRight(node);
-        }
-
-        return node;
     }
+
+    //refreshing height
+    if (getHeight(node->left) < getHeight(node->right))
+        node->height = getHeight(node->right) + 1;
+    else
+        node->height = getHeight(node->left) + 1;
+
+
+    //rotation removed element from left side
+    if(getBal(node) > 1) {
+        if(getBal(node->right) == -1)
+            node = rotateLeft(node);
+        else
+            node = rotateRightLeft(node);
+    }
+    //rotation removed element from right side
+    else if(getBal(node) < -1) {
+        if(getBal(node->left) == 1)
+            node = rotateRight(node);
+        else
+            node = rotateLeftRight(node);
+    }
+
+    return node;
 }
 
 AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
