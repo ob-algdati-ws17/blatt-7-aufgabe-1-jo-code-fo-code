@@ -30,6 +30,8 @@ private:
         Node* rotateLeftRight(Node*);
         Node* rotateRightLeft(Node*);
 
+        Node* remove(const int, Node*);
+
         vector<int> *preorder() const;  // (Hauptreihenfolge)
         vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
         vector<int> *postorder() const; // (Nebenreihenfolge)
