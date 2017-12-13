@@ -20,10 +20,6 @@ private:
         Node(const int, Node *, Node *);
         ~Node();
 
-        vector<int> *preorder() const;  // (Hauptreihenfolge)
-        vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
-        vector<int> *postorder() const; // (Nebenreihenfolge)
-
         Node* insert(const int, Node*);
 
         int getBal(Node*);
@@ -33,6 +29,12 @@ private:
         Node* rotateRight(Node*);
         Node* rotateLeftRight(Node*);
         Node* rotateRightLeft(Node*);
+
+        vector<int> *preorder() const;  // (Hauptreihenfolge)
+        vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
+        vector<int> *postorder() const; // (Nebenreihenfolge)
+
+        vector<int>* getAllBalances();
     };
 
     Node *root = nullptr;
@@ -47,6 +49,8 @@ public:
     vector<int> *preorder() const;  // (Hauptreihenfolge)
     vector<int> *inorder() const;   // (Symmetrische Reihenfolge)
     vector<int> *postorder() const; // (Nebenreihenfolge)
+
+    vector<int>* getAllBalances();
 
     friend ostream &operator<<(ostream &, const AvlTree &);
 };

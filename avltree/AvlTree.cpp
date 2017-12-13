@@ -147,6 +147,28 @@ int AvlTree::Node::getHeight(Node *node) {
         return node->height;
 }
 
+//returning balances in postorder
+vector<int>* AvlTree::getAllBalances() {
+    if(root == nullptr)
+        return nullptr;
+    return root->getAllBalances();
+}
+vector<int>* AvlTree::Node::getAllBalances() {
+    auto v = new vector<int>();
+
+    if (left != nullptr) {
+        auto v_left = left->getAllBalances();
+        v->insert(v->end(), v_left->begin(), v_left->end());
+    }
+
+    if (right != nullptr) {
+        auto v_right = right->getAllBalances();
+        v->insert(v->end(), v_right->begin(), v_right->end());
+    }
+
+    v->push_back(getBal(this));
+    return v;
+}
 
 
 vector<int> *AvlTree::preorder() const {
@@ -154,7 +176,6 @@ vector<int> *AvlTree::preorder() const {
         return nullptr;
     return root->preorder();
 }
-
 vector<int> *AvlTree::Node::preorder() const {
     auto vec = new vector<int>();
     // Wurzel in vec
@@ -171,13 +192,11 @@ vector<int> *AvlTree::Node::preorder() const {
     }
     return vec;
 }
-
 vector<int> *AvlTree::inorder() const {
     if (root == nullptr)
         return nullptr;
     return root->inorder();
 }
-
 vector<int> *AvlTree::Node::inorder() const {
     auto vec = new vector<int>();
     // linken Nachfolger in vec
@@ -194,13 +213,11 @@ vector<int> *AvlTree::Node::inorder() const {
     }
     return vec;
 }
-
 vector<int> *AvlTree::postorder() const {
     if (root == nullptr)
         return nullptr;
     return root->postorder();
 }
-
 vector<int> *AvlTree::Node::postorder() const {
     auto vec = new vector<int>();
     // linken Nachfolger in vec
@@ -217,8 +234,6 @@ vector<int> *AvlTree::Node::postorder() const {
     vec->push_back(key);
     return vec;
 }
-
-
 /********************************************************************
  * operator<<
  *******************************************************************/
