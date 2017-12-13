@@ -12,7 +12,7 @@ class AvlTree {
 private:
 
     struct Node {
-        const int key;
+        int key;
         int height = 0;
         Node *left = nullptr;
         Node *right = nullptr;
@@ -31,6 +31,7 @@ private:
         Node* rotateRightLeft(Node*);
 
         Node* remove(const int, Node*);
+        Node* symPredecessor(Node *node);
 
         vector<int> *preorder() const;  // (Hauptreihenfolge)
         vector<int> *inorder() const;   // (Symmetrische Reihenfolge)

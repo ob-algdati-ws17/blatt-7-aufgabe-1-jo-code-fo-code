@@ -63,6 +63,47 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     return node;
 }
 
+void AvlTree::remove(const int key) {
+    if(search(key)) {
+        root = root->remove(key, root);
+    }
+}
+
+AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
+    if(key < node->key)
+        node->left = remove(key, node->left);
+    else if(key > node->key)
+        node->right = remove(key, node->right);
+    else {
+        if(node->left != nullptr && node->right != nullptr) {
+            Node *predecessor = symPredecessor(node);
+            node->key = predecessor->key;
+            node->left = remove(node->key, node->left);
+        }
+        else {
+            if(node->left != nullptr)
+                node = node->left;
+            else if(node->right != nullptr)
+                node = node->right;
+            else {
+                node = nullptr;
+                return node;
+            }
+        }
+
+        //balancing
+    }
+
+}
+
+AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
+    node = node->left;
+    while(node->right != nullptr) {
+        node = node->right;
+    }
+    return node;
+}
+
 AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     Node* top = node->right;
     node->right = top->left;
@@ -109,20 +150,6 @@ AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
     return tmp;
-}
-
-void AvlTree::remove(const int key) {
-
-    if(search(key)) {
-        root = root->remove(key, root);
-    }
-
-}
-
-AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
-
-
-
 }
 
 bool AvlTree::search(const int key) const {
