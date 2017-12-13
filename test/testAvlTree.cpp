@@ -249,3 +249,39 @@ TEST(AvlTreeTest, RemoveTestLeftRotation) {
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(30,25,40,35));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,1,0,-1));
 }
+
+TEST(AvlTreeTest, RemoveTestLeftRightRotatationVar1) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(30);
+    a.insert(10);
+    a.insert(5);
+    a.insert(20);
+    a.insert(40);
+    a.insert(15);
+
+    a.remove(40);
+
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,10,5,15,25,30));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,15,20,25,30));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,15,10,30,25,20));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,1,0));
+}
+
+TEST(AvlTreeTest, RemoveTestRightLeftRotatationVar1) {
+    AvlTree a;
+    a.insert(15);
+    a.insert(10);
+    a.insert(25);
+    a.insert(5);
+    a.insert(30);
+    a.insert(20);
+    a.insert(17);
+
+    a.remove(5);
+
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,15,10,17,25,30));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(10,15,17,20,25,30));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(10,17,15,30,25,20));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,1,0));
+}
