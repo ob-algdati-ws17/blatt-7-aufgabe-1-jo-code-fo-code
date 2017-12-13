@@ -98,28 +98,26 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
             node->height = getHeight(node->left) + 1;
 
 
-        //rotation
+        //rotation removed element from left side
         if(getBal(node) > 1) {
             //ROTATING left
-            if(key > node->right->key)
+            if(getBal(node->right) == -1)
                 node = rotateLeft(node);
             else
                 node = rotateRightLeft(node);
         }
 
+        //rotation removed element from right side
         if(getBal(node) < -1) {
             //ROTATING right
-            if(key < node->left->key)
+            if(getBal(node->left) == 1)
                 node = rotateRight(node);
             else
                 node = rotateLeftRight(node);
         }
 
-
         return node;
-
     }
-
 }
 
 AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {

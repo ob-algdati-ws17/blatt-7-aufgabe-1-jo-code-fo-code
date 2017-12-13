@@ -20,12 +20,16 @@ int main(int argc, const char *argv[]) {
     int val;
     AvlTree *tree = new AvlTree();
 
-    tree->insert(20);
     tree->insert(25);
     tree->insert(10);
-    tree->insert(15);
+    tree->insert(35);
     tree->insert(5);
-    tree->insert(7);
+    tree->insert(20);
+    tree->insert(30);
+    tree->insert(40);
+    tree->insert(23);
+
+    tree->remove(25);
 
     AvlTree a;
 

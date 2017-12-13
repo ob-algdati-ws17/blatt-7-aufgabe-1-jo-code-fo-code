@@ -198,3 +198,21 @@ TEST(AvlTreeTest, SearchTestEmptyTree) {
     EXPECT_FALSE(a.search(10));
 }
 
+TEST(AvlTreeTest, RemoveRootTest) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(10);
+    a.insert(35);
+    a.insert(5);
+    a.insert(20);
+    a.insert(30);
+    a.insert(40);
+    a.insert(23);
+
+    a.remove(25);
+
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(23,10,5,20,35,30,40));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,23,30,35,40));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,10,30,40,35,23));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,0,0,0));
+}
