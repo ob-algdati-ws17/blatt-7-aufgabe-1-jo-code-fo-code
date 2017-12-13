@@ -36,6 +36,19 @@ TEST(AvlTreeTest, ThreeNodeTest) {
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(3,5,8));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(3,8,5));
 }
+TEST(AvlTreeTest, SevenNodeTest) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(10);
+    a.insert(35);
+    a.insert(5);
+    a.insert(20);
+    a.insert(30);
+    a.insert(40);
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(25,10,5,20,35,30,40));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,25,30,35,40));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,10,30,40,35,25));
+}
 
 //testing rotateLeft with inserting on right leaf
 TEST(AvlTreeTest, rotateLeftVar1Test) {
@@ -145,5 +158,30 @@ TEST(AvlTreeTest, rotateRightLeftVar2Test) {
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(10,15,23,30,25,20));
 }
 
-
+TEST(AvlTreeTest, SearchTestSevenNodes) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(10);
+    a.insert(35);
+    a.insert(5);
+    a.insert(20);
+    a.insert(30);
+    a.insert(40);
+    EXPECT_TRUE(a.search(25));
+    EXPECT_TRUE(a.search(10));
+    EXPECT_TRUE(a.search(35));
+    EXPECT_TRUE(a.search(5));
+    EXPECT_TRUE(a.search(20));
+    EXPECT_TRUE(a.search(30));
+    EXPECT_TRUE(a.search(40));
+}
+TEST(AvlTreeTest, SearchTestNodeNotFound) {
+    AvlTree a;
+    a.insert(25);
+    EXPECT_FALSE(a.search(10));
+}
+TEST(AvlTreeTest, SearchTestEmptyTree) {
+    AvlTree a;
+    EXPECT_FALSE(a.search(10));
+}
 
