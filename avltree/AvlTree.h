@@ -45,7 +45,8 @@ private:
 public:
 
     ~AvlTree();
-    bool search(const int) const;
+    bool search(const int);
+    bool isEmpty();
     void insert(const int);
     void remove(const int);
 

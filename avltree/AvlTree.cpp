@@ -29,7 +29,6 @@ AvlTree::Node::~Node() {
 void AvlTree::insert(const int key) {
     root = root->insert(key, root);
 }
-
 AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     if(node == nullptr)
         node = new Node(key);
@@ -68,7 +67,6 @@ void AvlTree::remove(const int key) {
         root = root->remove(key, root);
     }
 }
-
 AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
     if(key < node->key)
         node->left = remove(key, node->left);
@@ -126,6 +124,7 @@ AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
     return node;
 }
 
+
 AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     Node* top = node->right;
     node->right = top->left;
@@ -143,7 +142,6 @@ AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
 
     return top;
 }
-
 AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
     Node* top = node->left;
     node->left = top->right;
@@ -161,35 +159,39 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
 
     return top;
 }
-
 AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
     node->left = rotateLeft(node->left);
     Node* tmp = rotateRight(node);
     return tmp;
 }
-
 AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
     return tmp;
 }
 
-bool AvlTree::search(const int key) const {
 
-    Node *curr = root;
-
-    while (true) {
-        if (curr == nullptr) {
-            return false;
-        } else if (curr->key > key) {
-            curr = curr->left;
-        } else if (curr->key < key) {
-            curr = curr->right;
-        } else if(curr->key == key){
-            return true;
+bool AvlTree::search(const int key) {
+    if(isEmpty())
+        return false;
+    else {
+        Node *curr = root;
+        while (curr != nullptr) {
+            if (curr->key > key)
+                curr = curr->left;
+            else if (curr->key < key)
+                curr = curr->right;
+            else if (curr->key == key)
+                return true;
         }
+        return false;
     }
 }
+
+bool AvlTree::isEmpty() {
+    return root == nullptr;
+}
+
 
 int AvlTree::Node::getBal(Node *node) {
     if(node == nullptr)

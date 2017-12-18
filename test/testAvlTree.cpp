@@ -3,6 +3,10 @@
 
 using namespace std;
 
+/********************************************************************
+ * insert tests
+ *******************************************************************/
+
 //tests for inserting in the beginning
 TEST(AvlTreeTest, OneNodeTest) {
     AvlTree a;
@@ -171,6 +175,9 @@ TEST(AvlTreeTest, rotateRightLeftVar2Test) {
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,-1,0,0,0,0));
 }
 
+/********************************************************************
+ * search tests and isEmpty test
+ *******************************************************************/
 TEST(AvlTreeTest, SearchTestSevenNodes) {
     AvlTree a;
     a.insert(25);
@@ -197,7 +204,25 @@ TEST(AvlTreeTest, SearchTestEmptyTree) {
     AvlTree a;
     EXPECT_FALSE(a.search(10));
 }
+TEST(AvlTreeTest, isEmptyTest) {
+    AvlTree a;
+    bool isEmpty = a.inorder() == nullptr;
+    EXPECT_THAT(a.isEmpty(), isEmpty);
+}
 
+/********************************************************************
+ * remove tests
+ *******************************************************************/
+
+//removing from emtpy tree
+TEST(AvlTreeTest, RemoveTestEmptyTree) {
+    AvlTree a;
+    EXPECT_TRUE(a.isEmpty());
+    a.remove(5);
+    EXPECT_TRUE(a.isEmpty());
+}
+
+//test removing root
 TEST(AvlTreeTest, RemoveTestRoot) {
     AvlTree a;
     a.insert(25);
@@ -211,12 +236,14 @@ TEST(AvlTreeTest, RemoveTestRoot) {
 
     a.remove(25);
 
+    EXPECT_FALSE(a.search(25));
     EXPECT_THAT(*a.preorder(), testing::ElementsAre(23,10,5,20,35,30,40));
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,23,30,35,40));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,10,30,40,35,23));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,0,0,0));
 }
 
+//test single right rotation
 TEST(AvlTreeTest, RemoveTestRightRotation) {
     AvlTree a;
     a.insert(25);
@@ -227,13 +254,14 @@ TEST(AvlTreeTest, RemoveTestRightRotation) {
 
     a.remove(35);
 
+    EXPECT_FALSE(a.search(35));
     EXPECT_THAT(*a.preorder(), testing::ElementsAre(10,5,25,20));
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,25));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,20,25,10));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,-1,1));
 }
 
-
+//test single left rotation
 TEST(AvlTreeTest, RemoveTestLeftRotation) {
     AvlTree a;
     a.insert(25);
@@ -244,6 +272,7 @@ TEST(AvlTreeTest, RemoveTestLeftRotation) {
 
     a.remove(10);
 
+    EXPECT_FALSE(a.search(10));
     EXPECT_THAT(*a.preorder(), testing::ElementsAre(35,25,30,40));
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(25,30,35,40));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(30,25,40,35));
@@ -262,6 +291,7 @@ TEST(AvlTreeTest, RemoveTestLeftRightRotatationVar1) {
 
     a.remove(40);
 
+    EXPECT_FALSE(a.search(40));
     EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,10,5,15,25,30));
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,15,20,25,30));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,15,10,30,25,20));
@@ -280,8 +310,44 @@ TEST(AvlTreeTest, RemoveTestRightLeftRotatationVar1) {
 
     a.remove(5);
 
+    EXPECT_FALSE(a.search(5));
     EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,15,10,17,25,30));
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(10,15,17,20,25,30));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(10,17,15,30,25,20));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,1,0));
+}
+
+TEST(AvlTreeTest, RemoveTestRemoveAll) {
+    AvlTree a;
+    a.insert(15);
+    a.insert(10);
+    a.insert(25);
+    a.insert(5);
+    a.insert(30);
+    a.insert(20);
+    a.insert(17);
+
+    a.remove(15);
+    a.remove(10);
+    a.remove(25);
+    a.remove(5);
+    a.remove(30);
+    a.remove(20);
+    a.remove(17);
+
+    EXPECT_TRUE(a.isEmpty());
+}
+
+//removing not existing element
+TEST(AvlTreeTest, RemoveTestNotExistingElement) {
+    AvlTree a;
+    a.insert(5);
+    a.insert(3);
+    a.insert(8);
+    EXPECT_FALSE(a.search(10));
+    a.remove(10);
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(5,3,8));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(3,5,8));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(3,8,5));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0));
 }
