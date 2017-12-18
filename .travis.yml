@@ -1,15 +1,3 @@
-dist: trusty
-sudo: required
-
-  addons:
-    sonarcloud:
-      organization: "jo-code-github"
-
-  cache:
-    directories:
-      - '$HOME/.sonar/cache'
-
-
 language: cpp
 compliler: gcc
 script:
@@ -18,7 +6,4 @@ script:
   - cd build
   - cmake ..
   - make
-  - make test
-      - build-wrapper-linux-x86-64 --out-dir bw-output make clean all
-      - sonar-scanner
-
+- make test
