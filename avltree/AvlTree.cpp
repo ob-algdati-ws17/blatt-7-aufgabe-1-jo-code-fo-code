@@ -36,7 +36,7 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     else if(node->key < key) {
         node->right = insert(key, node->right);
         if(getBal(node) > 1) {
-            //ROTATING left
+            //left
             if(key > node->right->key)
                 node = rotateLeft(node);
             else
@@ -46,7 +46,7 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     else if(node->key > key){
         node->left = insert(key, node->left);
         if(getBal(node) < -1) {
-            //ROTATING right
+            //right
             if(key < node->left->key)
                 node = rotateRight(node);
             else

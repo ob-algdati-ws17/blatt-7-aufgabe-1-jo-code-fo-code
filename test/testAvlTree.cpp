@@ -243,7 +243,7 @@ TEST(AvlTreeTest, RemoveTestRoot) {
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,0,0,0));
 }
 
-//test single right rotation
+//test single right rotation removing deepest element from right side
 TEST(AvlTreeTest, RemoveTestRightRotation) {
     AvlTree a;
     a.insert(25);
@@ -261,7 +261,7 @@ TEST(AvlTreeTest, RemoveTestRightRotation) {
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,-1,1));
 }
 
-//test single left rotation
+//test single left rotation removing deepest element from right side
 TEST(AvlTreeTest, RemoveTestLeftRotation) {
     AvlTree a;
     a.insert(25);
@@ -279,6 +279,7 @@ TEST(AvlTreeTest, RemoveTestLeftRotation) {
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,1,0,-1));
 }
 
+//removing from right side deepest element, deepest right side is left
 TEST(AvlTreeTest, RemoveTestLeftRightRotatationVar1) {
     AvlTree a;
     a.insert(25);
@@ -297,7 +298,27 @@ TEST(AvlTreeTest, RemoveTestLeftRightRotatationVar1) {
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,15,10,30,25,20));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,1,0));
 }
+//removing from right side deepest element, deepest right side is right
+TEST(AvlTreeTest, RemoveTestLeftRightRotatationVar2) {
+    AvlTree a;
+    a.insert(25);
+    a.insert(30);
+    a.insert(10);
+    a.insert(5);
+    a.insert(20);
+    a.insert(40);
+    a.insert(22);
 
+    a.remove(40);
+
+    EXPECT_FALSE(a.search(40));
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,10,5,25,22,30));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(5,10,20,22,25,30));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(5,10,22,30,25,20));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,-1,0,0,0,0));
+}
+
+//removing from left side deepest element, deepest right side is left
 TEST(AvlTreeTest, RemoveTestRightLeftRotatationVar1) {
     AvlTree a;
     a.insert(15);
@@ -315,6 +336,25 @@ TEST(AvlTreeTest, RemoveTestRightLeftRotatationVar1) {
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(10,15,17,20,25,30));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(10,17,15,30,25,20));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,1,0));
+}
+//removing from left side deepest element, deepest right side is right
+TEST(AvlTreeTest, RemoveTestRightLeftRotatationVar2) {
+    AvlTree a;
+    a.insert(15);
+    a.insert(10);
+    a.insert(25);
+    a.insert(5);
+    a.insert(30);
+    a.insert(20);
+    a.insert(22);
+
+    a.remove(5);
+
+    EXPECT_FALSE(a.search(5));
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(20,15,10,25,22,30));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(10,15,20,22,25,30));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(10,15,22,30,25,20));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,-1,0,0,0,0));
 }
 
 TEST(AvlTreeTest, RemoveTestRemoveAll) {
@@ -350,4 +390,12 @@ TEST(AvlTreeTest, RemoveTestNotExistingElement) {
     EXPECT_THAT(*a.inorder(), testing::ElementsAre(3,5,8));
     EXPECT_THAT(*a.postorder(), testing::ElementsAre(3,8,5));
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0));
+}
+
+//removing from empty list
+TEST(AvlTreeTest, RemoveTestEmptyList) {
+    AvlTree a;
+    EXPECT_TRUE(a.isEmpty());
+    a.remove(10);
+    EXPECT_TRUE(a.isEmpty());
 }
