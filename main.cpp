@@ -9,6 +9,13 @@ using namespace std;
 template<typename T>
 ostream &operator<<(ostream &out, const vector<T> &v);
 
+/**
+ * main method from exercise 6 to test avl tree.
+ *
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, const char *argv[]) {
     auto treeToPng = [](AvlTree *tree) {
         ofstream myfile;

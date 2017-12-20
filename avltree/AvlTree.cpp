@@ -6,29 +6,58 @@
 using namespace std;
 
 
-/********************************************************************
- * Konstruktoren
- ********************************************************************/
+/**
+ * constructor to create a new Node only with a key.
+ *
+ * \param key for new Node
+ */
 AvlTree::Node::Node(const int k) : key(k) {};
 
+/**
+ * constructor to create a new Node with a key
+ * and a pointer to the left and to the right.
+ *
+ * \param k const int key for new Node
+ * \param r Node* for the pointer on the right
+ * \param l Node* for pointer on the left
+ */
 AvlTree::Node::Node(const int k, Node* l, Node* r) : key(k), left(l), right(r) {};
 
 
-/********************************************************************
-* Destruktoren
-*********************************************************************/
+/**
+ * destructor for avl tree -> deletes root.
+ */
 AvlTree::~AvlTree() {
     delete root;
 }
+
+/**
+ * recursive destructor for nodes.
+ * starts from root and deletes all nodes recursively excluding root.
+ */
 AvlTree::Node::~Node() {
     delete left;
     delete right;
 }
 
 
+/**
+ * starts recursion to insert new node with key handed over.
+ *
+ * \param key cont int value for the new node
+ */
 void AvlTree::insert(const int key) {
     root = root->insert(key, root);
 }
+
+/**
+ * recursive insertion of a new node with handed over key value including auto balancing of avl tree.
+ * auto balancing happens in the recursion.
+ *
+ * \param key const int value for the new node
+ * \param node which the next node while running down the tree to find the position to insert the new node
+ * \return node which is the current node where the recursion is while returning
+ */
 AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     if(node == nullptr)
         node = new Node(key);
@@ -62,9 +91,23 @@ AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     return node;
 }
 
+
+/**
+ * starts recursion to remove a node with key handed over.
+ *
+ * \param key cont int value of node to be removed
+ */
 void AvlTree::remove(const int key) {
     root = root->remove(key, root);
 }
+/**
+ * recursive removing of a node with handed over key value including auto balancing of avl tree.
+ * auto balancing happens in the recursion.
+ *
+ * \param key const int value of the node to be removed
+ * \param node which the next node while running down the tree to find the position of the node to delete.
+ * \return node which is the current node where the recursion is while returning
+ */
 AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
     if (node == nullptr)
         return node;
@@ -116,6 +159,13 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
     return node;
 }
 
+
+/**
+ * getting the symmetric predecessor of a node.
+ *
+ * \param node from which the symmetric predecessor is needed
+ * \return node which is the predecessor
+ */
 AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
     node = node->left;
     while(node->right != nullptr) {
@@ -124,7 +174,12 @@ AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
     return node;
 }
 
-
+/**
+ * left rotation to balance the tree.
+ *
+ * \param node position where the tree should ne rotated
+ * \return new node which is now on the position of the node handed over
+ */
 AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     Node* top = node->right;
     node->right = top->left;
@@ -142,6 +197,13 @@ AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
 
     return top;
 }
+
+/**
+ * right rotation to balance the tree.
+ *
+ * \param node position where the tree should ne rotated
+ * \return new node which is now on the position of the node handed over
+ */
 AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
     Node* top = node->left;
     node->left = top->right;
@@ -159,11 +221,25 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
 
     return top;
 }
+
+/**
+ * left-right rotation to balance the tree using methods for single left/right rotation.
+ *
+ * \param node position where the tree should ne rotated
+ * \return new node which is now on the position of the node handed over
+ */
 AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
     node->left = rotateLeft(node->left);
     Node* tmp = rotateRight(node);
     return tmp;
 }
+
+/**
+ * right-left rotation to balance the tree using methods for single right/left rotation.
+ *
+ * \param node position where the tree should ne rotated
+ * \return new node which is now on the position of the node handed over
+ */
 AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
@@ -171,6 +247,12 @@ AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
 }
 
 
+/**
+ * searching in tree for a handed over key.
+ *
+ * \param key to search for
+ * \return true if key was found, false otherwise
+ */
 bool AvlTree::search(const int key) {
     if(isEmpty())
         return false;
@@ -188,11 +270,22 @@ bool AvlTree::search(const int key) {
     }
 }
 
+/**
+ * checking if tree is emty.
+ *
+ * \return true if tree is empty, false otherwise
+ */
 bool AvlTree::isEmpty() {
     return root == nullptr;
 }
 
 
+/**
+ * getting the balance of a node handed over.
+ *
+ * \param node to get the balance from
+ * \return balance from node
+ */
 int AvlTree::Node::getBal(Node *node) {
     if(node == nullptr)
         return 0;
@@ -200,6 +293,12 @@ int AvlTree::Node::getBal(Node *node) {
         return getHeight(node->right) - getHeight(node->left);
 }
 
+/**
+ * getting the maximum branch height of a node handed over.
+ *
+ * @param node to get the height from
+ * @return maximum branch height from node
+ */
 int AvlTree::Node::getHeight(Node *node) {
     if(node == nullptr)
         return -1;
@@ -207,12 +306,24 @@ int AvlTree::Node::getHeight(Node *node) {
         return node->height;
 }
 
-//returning balances in postorder
+
+/**
+ * calling method to get all balances of a tree ordered by post order.
+ *
+ * @return vector with all balances
+ */
 vector<int>* AvlTree::getAllBalances() {
     if(root == nullptr)
         return nullptr;
     return root->getAllBalances();
 }
+
+/**
+ * getting all balances of a tree ordered by post order.
+ * method is used for testing trees.
+ *
+ * @return vector with all balances
+ */
 vector<int>* AvlTree::Node::getAllBalances() {
     auto v = new vector<int>();
 
@@ -231,6 +342,19 @@ vector<int>* AvlTree::Node::getAllBalances() {
 }
 
 
+
+//**********************************************************************
+//**********************************************************************
+//only methods for testing tree
+//**********************************************************************
+//**********************************************************************
+
+/**
+ * getting pre order of an avl tree for tests.
+ * taken from exercise 6.
+ *
+ * \return
+ */
 vector<int> *AvlTree::preorder() const {
     if (root == nullptr)
         return nullptr;
@@ -252,6 +376,12 @@ vector<int> *AvlTree::Node::preorder() const {
     }
     return vec;
 }
+/**
+ * getting in order of an avl tree for tests.
+ * taken from exercise 6.
+ *
+ * \return
+ */
 vector<int> *AvlTree::inorder() const {
     if (root == nullptr)
         return nullptr;
@@ -273,6 +403,12 @@ vector<int> *AvlTree::Node::inorder() const {
     }
     return vec;
 }
+/**
+ * getting post order of an avl tree for tests.
+ * taken from exercise 6.
+ *
+ * \return
+ */
 vector<int> *AvlTree::postorder() const {
     if (root == nullptr)
         return nullptr;
@@ -294,9 +430,15 @@ vector<int> *AvlTree::Node::postorder() const {
     vec->push_back(key);
     return vec;
 }
-/********************************************************************
- * operator<<
- *******************************************************************/
+
+
+/**
+ * method to print avl tree to a file from exercise 6.
+ *
+ * \param os
+ * \param tree
+ * \return
+ */
 std::ostream &operator<<(std::ostream &os, const AvlTree &tree) {
     function<void(std::ostream &, const int, const AvlTree::Node *, const string)> printToOs
             = [&](std::ostream &os, const int value, const AvlTree::Node *node, const string l) {
