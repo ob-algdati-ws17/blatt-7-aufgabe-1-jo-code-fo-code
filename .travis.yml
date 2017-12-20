@@ -1,5 +1,16 @@
 language: cpp
 compliler: gcc
+
+# Install dependencies
+addons:
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-latex
+      - doxygen-gui
+      - graphviz
+
 script:
   - rm -rf build
   - mkdir build
