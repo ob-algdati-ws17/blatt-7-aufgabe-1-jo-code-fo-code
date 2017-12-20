@@ -59,6 +59,20 @@ TEST(AvlTreeTest, SevenNodeTest) {
     EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0,0,0,0,0));
 }
 
+//testing inserting element which is already in tree
+TEST(AvlTreeTest, ThreeNodeTestInsertDublicateKey) {
+    AvlTree a;
+    a.insert(5);
+    a.insert(3);
+    a.insert(8);
+    a.insert(5);
+    EXPECT_TRUE(a.inorder()->size() == 3);
+    EXPECT_THAT(*a.preorder(), testing::ElementsAre(5,3,8));
+    EXPECT_THAT(*a.inorder(), testing::ElementsAre(3,5,8));
+    EXPECT_THAT(*a.postorder(), testing::ElementsAre(3,8,5));
+    EXPECT_THAT(*a.getAllBalances(), testing::ElementsAre(0,0,0));
+}
+
 //testing rotateLeft with inserting on right leaf
 TEST(AvlTreeTest, rotateLeftVar1Test) {
     AvlTree a;
