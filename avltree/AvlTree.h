@@ -17,13 +17,28 @@ class AvlTree {
 private:
 
     /**
-     * \struct Node for creating a new node
+     * Struct with information about a node
      */
     struct Node {
+        /**
+         * Key of this node.
+         */
         int key;
+        /**
+         * Height of this node.
+         */
         int height = 0;
+        /**
+         * Left chlild of this node.
+         */
         Node *left = nullptr;
+        /**
+         * Right child of this node.
+         */
         Node *right = nullptr;
+        /**
+         * Creates a node with given key.
+         */
         Node(const int);
         Node(const int, Node *, Node *);
         ~Node();
