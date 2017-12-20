@@ -10,7 +10,7 @@ using namespace std;
 /**
  * class for creating a self balancing avl tree.
  *
- * \class AvlTree.h
+ * \class AvlTree
  * \authors jo-code, fo-code
  */
 class AvlTree {
