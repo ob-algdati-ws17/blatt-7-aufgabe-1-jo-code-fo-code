@@ -7,10 +7,19 @@
 
 using namespace std;
 
+/**
+ * class for creating a self balancing avl tree.
+ *
+ * \class AvlTree.h
+ * \authors jo-code, fo-code
+ */
 class AvlTree {
 
 private:
 
+    /**
+     * \struct Node for creating a new node
+     */
     struct Node {
         int key;
         int height = 0;
@@ -43,7 +52,7 @@ private:
     Node *root = nullptr;
 
 public:
-
+    /// \testcomment
     ~AvlTree();
     bool search(const int);
     bool isEmpty();
