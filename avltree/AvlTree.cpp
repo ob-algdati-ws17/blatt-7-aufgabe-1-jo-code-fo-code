@@ -32,6 +32,7 @@ void AvlTree::insert(const int key) {
 
 /// \param key key for the new node.
 /// \param node next node for recursively stepping down the tree in order to find the insert position for the new node.
+/// \return current node in recursion process.
 AvlTree::Node* AvlTree::Node::insert(const int key, Node *node) {
     if(node == nullptr)
         node = new Node(key);
@@ -74,6 +75,7 @@ void AvlTree::remove(const int key) {
 
 /// \param key key of node to be removed.
 /// \param node next node for recursively stepping down the tree in order to find the node to be deleted.
+/// \return current node in recursion process.
 AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
     if (node == nullptr)
         return node;
@@ -128,6 +130,7 @@ AvlTree::Node* AvlTree::Node::remove(const int key, Node *node) {
 
 
 /// \param node node whos symmetric predecessor is requested.
+/// \return node which is the symmetric predecessor.
 AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
     node = node->left;
     while(node->right != nullptr) {
@@ -138,6 +141,7 @@ AvlTree::Node* AvlTree::Node::symPredecessor(Node *node) {
 
 
 /// \param node position where the tree should be rotated.
+/// \return node which is now at the position of the node handed over
 AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
     Node* top = node->right;
     node->right = top->left;
@@ -157,6 +161,7 @@ AvlTree::Node* AvlTree::Node::rotateLeft(Node* node) {
 }
 
 /// \param node position where the tree should be rotated.
+/// \return node which is now at the position of the node handed over
 AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
     Node* top = node->left;
     node->left = top->right;
@@ -176,6 +181,7 @@ AvlTree::Node* AvlTree::Node::rotateRight(Node* node) {
 }
 
 /// \param node position where the tree should be rotated.
+/// \return node which is now at the position of the node handed over
 AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
     node->left = rotateLeft(node->left);
     Node* tmp = rotateRight(node);
@@ -183,6 +189,7 @@ AvlTree::Node* AvlTree::Node::rotateLeftRight(Node* node) {
 }
 
 /// \param node position where the tree should be rotated.
+/// \return node which is now at the position of the node handed over
 AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     Node* tmp = rotateLeft(node);
@@ -192,6 +199,7 @@ AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
 
 
 /// \param key key to search for.
+/// \return true if node with key found, false if not found.
 bool AvlTree::search(const int key) {
     if(isEmpty())
         return false;
@@ -217,6 +225,7 @@ bool AvlTree::isEmpty() {
 
 
 /// \param node node to get the balance from.
+/// \return balance
 int AvlTree::Node::getBal(Node *node) {
     if(node == nullptr)
         return 0;
@@ -226,6 +235,7 @@ int AvlTree::Node::getBal(Node *node) {
 
 
 /// \param node node to get the height from.
+/// \return height
 int AvlTree::Node::getHeight(Node *node) {
     if(node == nullptr)
         return -1;

@@ -39,40 +39,31 @@ private:
         ~Node();
 
         ///Recursively inserting a node to the tree.
-        /// \return current node in recursion process.
         Node* insert(const int, Node*);
 
         ///Returns balance of specified node.
-        /// \return balance
         int getBal(Node*);
 
         ///Returns height of specified node.
-        /// \return height
         int getHeight(Node*);
 
         ///left rotation to re-balance the tree.
-        /// \return node which is now at the position of the node handed over
         Node* rotateLeft(Node*);
 
         ///right rotation to re-balance the tree.
-        /// \return node which is now at the position of the node handed over
         Node* rotateRight(Node*);
 
         ///left-right rotation to balance the tree using methods for single left/right rotation.
-        /// \return node which is now at the position of the node handed over
         Node* rotateLeftRight(Node*);
 
         ///right-left rotation to balance the tree using methods for single right/left rotation.
-        /// \return node which is now at the position of the node handed over
         Node* rotateRightLeft(Node*);
 
         ///recursive removing the node with specified key including auto balancing the avl tree.
         ///Auto balancing is made during recursion.
-        /// \return current node in recursion process.
         Node* remove(const int, Node*);
 
         ///Returns the symmetric predecessor of the node.
-        /// \return node which is the symmetric predecessor
         Node* symPredecessor(Node *node);
 
         ///Getting preorder of the avl tree. Used for testing.
@@ -96,7 +87,6 @@ public:
     ~AvlTree();
 
     ///Searching a node with specified key in the tree.
-    /// \return true if node with key found, false if not found.
     bool search(const int);
 
     ///States if tree is empty.
