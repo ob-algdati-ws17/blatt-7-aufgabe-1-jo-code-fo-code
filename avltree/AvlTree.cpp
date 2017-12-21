@@ -192,7 +192,6 @@ AvlTree::Node* AvlTree::Node::rotateRightLeft(Node* node) {
 
 
 /// \param key key to search for.
-/// \return true if tree is empty, false if at least one node in tree.
 bool AvlTree::search(const int key) {
     if(isEmpty())
         return false;
@@ -210,7 +209,7 @@ bool AvlTree::search(const int key) {
     }
 }
 
-
+/// \return true if tree is empty, false if at least one node in tree.
 bool AvlTree::isEmpty() {
     return root == nullptr;
 }
