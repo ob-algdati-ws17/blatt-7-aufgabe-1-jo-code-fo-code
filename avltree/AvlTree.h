@@ -59,8 +59,7 @@ private:
         ///right-left rotation to balance the tree using methods for single right/left rotation.
         Node* rotateRightLeft(Node*);
 
-        ///recursive removing the node with specified key including auto balancing the avl tree.
-        ///Auto balancing is made during recursion.
+        ///recursive removing the node with specified key including auto balancing the avl tree. Auto balancing is made during recursion.
         Node* remove(const int, Node*);
 
         ///Returns the symmetric predecessor of the node.
