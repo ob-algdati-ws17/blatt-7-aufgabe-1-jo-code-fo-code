@@ -20,9 +20,8 @@ private:
      * Struct with information about a node
      */
     struct Node {
-        /**
-         * Key of this node.
-         */
+
+        /// Key of this node.
         int key;
         /**
          * Height of this node.
