@@ -55,7 +55,7 @@ private:
         Node* rotateLeft(Node*);
 
         ///right rotation to re-balance the tree.
-        /// /// \return node which is now at the position of the node handed over
+        /// \return node which is now at the position of the node handed over
         Node* rotateRight(Node*);
 
         ///left-right rotation to balance the tree using methods for single left/right rotation.
@@ -100,7 +100,6 @@ public:
     bool search(const int);
 
     ///States if tree is empty.
-    /// \return true if tree is empty, false if at least one node in tree.
     bool isEmpty();
 
     ///Begins recursion to insert new node with key handed over.
